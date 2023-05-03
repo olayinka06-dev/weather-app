@@ -65,12 +65,12 @@ const WeatherLatitude = () => {
               <input 
               type="text" 
               value={latitude}
-              placeholder='get your latitude'
+              placeholder='Get your latitude'
               id="" readOnly/>
               <input 
               type="text" 
               value={longitude}
-              placeholder='get your longitude'
+              placeholder='Get your longitude'
               id="" readOnly/>
             </div>
             <button onClick={handleGeolocation}>Get your Geolocation</button>
@@ -89,6 +89,7 @@ const WeatherLatitude = () => {
               <input 
               type="search"
               value={finalongitude}
+              placeholder='Enter your longitude'
               onChange={(event) => setFinalongitude(event.target.value)} 
               id="" />
             </div>
