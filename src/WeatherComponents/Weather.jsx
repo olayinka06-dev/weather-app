@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import bgdesktop from "../images/pexels-pixabay-531756.jpg";
 function Weather() {
   const [city, setCity] = useState("");
   const [weatherData, setWeatherData] = useState(null);
@@ -74,7 +75,9 @@ const Wrapper = styled.div`
     .container{
         width: 100%;
         min-height: 100vh;
-        background-color: black;
+        background-image: url(${bgdesktop});
+        background-repeat: no-repeat;
+        background-size: cover;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -84,7 +87,7 @@ const Wrapper = styled.div`
     .main{
         width: 100%;
         max-width: 500px;
-        background-color: orange;
+        background-color: rgb(242,243,245);
         min-height: 40vh;
         padding: 0 10px;
         display: flex;
@@ -93,6 +96,13 @@ const Wrapper = styled.div`
     .description{
         margin-top: 30px;
         padding-bottom: 20px;
+        
+    }
+    .description p{
+        background-color: white;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius:10px;
     }
     form{
         width: 100%;
@@ -107,14 +117,18 @@ const Wrapper = styled.div`
         padding: 15px;
         border-top-left-radius: 20px;
         border-bottom-left-radius: 20px;
-        border: none;
+        border: 1px solid #0563bb;
     }
     button{
         width: 40%;
         padding: 15px 0;
+        background: #0563bb;
+        color: white;
         border-top-right-radius: 20px;
         border-bottom-right-radius: 20px;
-        border: none;
+        outline-color: #0563bb;
+        border: 1px solid #0563bb;
+        cursor: pointer;
     }
 
     @media screen and (max-width: 950px){
