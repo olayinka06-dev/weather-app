@@ -128,12 +128,15 @@ const Wrapper = styled.div`
     .main{
         width: 100%;
         max-width: 500px;
-        background-color: rgb(242,243,245);
+        /* background-color: rgb(242,243,245); */
         min-height: 40vh;
         padding: 0 10px;
         display: flex;
         flex-direction: column;
         border-radius: 10px;
+    }
+    .main h1{
+        color: white;
     }
     .description{
         margin-top: 30px;
