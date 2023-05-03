@@ -47,11 +47,12 @@ function Weather() {
                     <button type="submit">Search Your City/Country</button>
                 </form>
                 {error && (
-                    <p>{error}</p>
+                    <Error>{error}</Error>
                 )}
                 {
                     weatherData &&(
                         <div className="description">
+                            <h2>The Weather information in {city}is :</h2>
                             <div>Weather-Icon: <img src={`http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`} alt={weatherData.weather[0].description} /></div>
                             <p>Description: {weatherData.weather[0].description}</p>
                             <p>Temperature: {Math.round(weatherData.main.temp - 273.15)} &#8451;</p>
@@ -68,6 +69,9 @@ function Weather() {
     </Wrapper>
   )
 }
+const Error = styled.p`
+    color: white;
+`
 const Wrapper = styled.div`
     
     *{
@@ -152,6 +156,9 @@ const Wrapper = styled.div`
         justify-content: flex-start;
         align-items: center;
         padding-left: 10px;
+    }
+    .description h2{
+        color: white;
     }
     .description p{
         background-color: white;
