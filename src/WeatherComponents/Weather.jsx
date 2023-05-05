@@ -52,7 +52,7 @@ function Weather() {
                 {
                     weatherData &&(
                         <div className="description">
-                            <h2>The Weather information in {city}is :</h2>
+                            <h2>The Weather information in {city} is :</h2>
                             <div>Weather-Icon: <img src={`http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`} alt={weatherData.weather[0].description} /></div>
                             <p>Description: {weatherData.weather[0].description}</p>
                             <p>Temperature: {Math.round(weatherData.main.temp - 273.15)} &#8451;</p>
@@ -70,7 +70,7 @@ function Weather() {
   )
 }
 const Error = styled.p`
-    color: white;
+    color: red;
 `
 const Wrapper = styled.div`
     

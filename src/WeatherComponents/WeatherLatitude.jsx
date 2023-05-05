@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { Link } from "react-router-dom";
+import bgdesktop from "../images/pexels-pixabay-531756.jpg";
+import bgdesktop1 from "../images/pexels-pixabay-314726.jpg";
+import bgdesktop2 from "../images/pexels-lumn-311039 (1).jpg";
+import bgdesktop3 from "../images/pexels-iconcom-216599.jpg";
+import bgdesktop4 from "../images/pexels-prashant-gautam-3783385.jpg";
 
 const WeatherLatitude = () => {
   const [latitude, setLatitude] = useState("");
@@ -115,7 +120,61 @@ const WeatherLatitude = () => {
 }
 const Wrapper = styled.div`
 
-
+  *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .container{
+      width: 100%;
+      min-height: 100vh;
+      background-image: url(${bgdesktop});
+      background-repeat: no-repeat;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 30px;
+      animation: animate 10s linear infinite;
+    }
+    @keyframes animate {
+      0%{
+        background-image: url(${bgdesktop});
+        background-repeat: no-repeat;
+        object-fit: cover;
+        overflow: hidden;
+        background-size: cover;    
+      }
+      25%{
+        background-image: url(${bgdesktop1});
+        background-repeat: no-repeat;
+        object-fit: cover;
+        overflow: hidden;
+        background-size: cover;
+      }
+      50%{
+        background-image: url(${bgdesktop2});
+        background-repeat: no-repeat;
+        object-fit: cover;
+        overflow: hidden;
+        background-size: cover;
+      }
+      75%{
+        background-image: url(${bgdesktop3});
+        background-repeat: no-repeat;
+        object-fit: cover;
+        overflow: hidden;
+        background-size: cover;
+      }
+      100%{
+        background-image: url(${bgdesktop4});
+        background-repeat: no-repeat;
+        object-fit: cover;
+        overflow: hidden;
+        background-size: cover;
+      }
+    }
 
 `
 export default WeatherLatitude;
