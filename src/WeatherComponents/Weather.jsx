@@ -26,9 +26,24 @@ function Weather() {
             const response = await axios.get(apiUrl)
             setWeatherData(response.data)
             setError(null);
+
           } catch (error) {
-            setError("Invalid city name. Please try again.");
-            setWeatherData(null)
+
+                if (error.response) {
+                    setError(`cannot get weather update for ${city}`)
+                    setWeatherData(null);
+
+                }
+                else if (error.request) {
+                    setError(`Poor Internet Connection, please try again later`)
+                    setWeatherData(null);
+
+                }
+                else{
+                    setError("Something happened unexpectedly")
+                    setWeatherData(null);
+
+                }
             console.error(error);
           }
     }; 
@@ -41,6 +56,7 @@ function Weather() {
                 <form action="" onSubmit={handleSubmit}>
                     <input 
                     type="search"
+                    placeholder="Enter the nameof your city or country..."
                     value={city}
                     onChange={(event) => setCity(event.target.value)} 
                     id="" />
@@ -52,7 +68,7 @@ function Weather() {
                 {
                     weatherData &&(
                         <div className="description">
-                            <h2>The Weather information in {city} is :</h2>
+                            <h2>The Weather information in {weatherData && {city}} is :</h2>
                             <div>Weather-Icon: <img src={`http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`} alt={weatherData.weather[0].description} /></div>
                             <p>Description: {weatherData.weather[0].description}</p>
                             <p>Temperature: {Math.round(weatherData.main.temp - 273.15)} &#8451;</p>
