@@ -56,7 +56,7 @@ function Weather() {
                 <form action="" onSubmit={handleSubmit}>
                     <input 
                     type="search"
-                    placeholder="Enter the nameof your city or country..."
+                    placeholder="Enter the name of your city or country..."
                     value={city}
                     onChange={(event) => setCity(event.target.value)} 
                     id="" />

@@ -82,7 +82,7 @@ const WeatherLatitude = () => {
           </form>
         </div>
         <div className="weather-description">
-          <h1>Get to know the exact weather in your location</h1>
+          <h1>Get to know the exact weather Update in your location</h1>
           <form action="" onSubmit={handleSubmit}>
             <div className="input-filed-two">
               <input 
