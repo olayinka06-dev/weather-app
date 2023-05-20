@@ -1,19 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import bgdesktop from "../images/pexels-pixabay-531756.jpg";
-import bgdesktop1 from "../images/pexels-pixabay-314726.jpg";
-import bgdesktop2 from "../images/pexels-lumn-311039 (1).jpg";
-import bgdesktop3 from "../images/pexels-iconcom-216599.jpg";
-import bgdesktop4 from "../images/pexels-prashant-gautam-3783385.jpg";
+import bgdesktop from "../../images/pexels-pixabay-531756.jpg";
+import bgdesktop1 from "../../images/pexels-pixabay-314726.jpg";
+import bgdesktop2 from "../../images/pexels-lumn-311039 (1).jpg";
+import bgdesktop3 from "../../images/pexels-iconcom-216599.jpg";
+import bgdesktop4 from "../../images/pexels-prashant-gautam-3783385.jpg";
+import WeatherData from "../Weather data/WeatherData";
+import MapSketch from "../Map page/MapSketch";
+
 function Weather() {
   const [city, setCity] = useState("");
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState();
-
+  const [loading, setLoading] = useState(true); 
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState(""); 
 
   const handleSubmit = async (event) => {
+    setError(true)
       event.preventDefault();
       if(!city){
           setError("please  enter a city/country name");
@@ -26,8 +32,11 @@ function Weather() {
             const response = await axios.get(apiUrl)
             setWeatherData(response.data)
             setError(null);
+            setLoading(false);
 
           } catch (error) {
+            setLoading(false);
+
 
                 if (error.response) {
                     setError(`cannot get weather update for ${city}`)
@@ -46,12 +55,60 @@ function Weather() {
                 }
             console.error(error);
           }
-    }; 
+    };
 
+    const handleGeolocation = async () => {
+        setLoading(true);
+        
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            setLatitude(position.coords.latitude);
+            setLongitude(position.coords.longitude);
+          })
+        }
+        else{
+          setLatitude("Geolocation is not supported by this browser");
+          setLongitude("Geolocation is not supported by this browser")
+        }
+
+        try {
+            const api_key = "b34fd620f1f001d33939eeaf8fe8d5bd";
+            const api_url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${api_key}`
+
+            const locationResponse = await axios.get(api_url);
+            setWeatherData(locationResponse.data)
+            setError(null);
+            setLoading(false);
+            // setCity()
+
+        } catch (error) {
+            setLoading(false);
+
+            if (error.response) {
+                setError(`cannot get weather update for ${city}`)
+                setWeatherData(null);
+
+            }
+            else if (error.request) {
+                setError(`Poor Internet Connection, please try again later`)
+                setWeatherData(null);
+
+            }
+            else{
+                setError("Something happened unexpectedly")
+                setWeatherData(null);
+
+            }
+            console.error(error);
+        }
+      }
+      useEffect(() => {
+        handleGeolocation();
+      });
   return (
     <Wrapper>
         <div className="container">
-            <div className="main">
+            <WeatherDetails className="main">
                 <h1>My Weather App</h1>
                 <form action="" onSubmit={handleSubmit}>
                     <input 
@@ -66,21 +123,23 @@ function Weather() {
                     <Error>{error}</Error>
                 )}
                 {
-                    weatherData &&(
-                        <div className="description">
-                            <h2>The Weather information {city} is :</h2>
-                            <div>Weather-Icon: <img src={`http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`} alt={weatherData.weather[0].description} /></div>
-                            <p>Description: {weatherData.weather[0].description}</p>
-                            <p>Temperature: {Math.round(weatherData.main.temp - 273.15)} &#8451;</p>
-                            <p>Min Temperature: {Math.round(weatherData.main.temp_min - 273.15)} &#8451;</p>
-                            <p>Max Temperature: {Math.round(weatherData.main.temp_max - 273.15)} &#8451;</p>
-                            <p>Timezone: {weatherData.timezone}</p>
-                            <p>Wind Speed: {weatherData.wind.speed} m/s</p>
+                    loading ? ( 
+                        <div>
+                            <div></div>
+                            <p>Loading...</p>
                         </div>
+                    ) : (
+                        <WeatherData
+                        weatherData={weatherData}
+                        city={city}
+                    />
                     )
                 }
                 <Link to={"/latitude"}>Link to latitude</Link>
-            </div>
+            </WeatherDetails>
+            <Map>
+                <MapSketch/>
+            </Map>
         </div>
     </Wrapper>
   )
@@ -102,7 +161,7 @@ const Wrapper = styled.div`
         background-repeat: no-repeat;
         background-size: cover;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
         padding: 0 30px;
@@ -145,43 +204,8 @@ const Wrapper = styled.div`
             background-size: cover;
         }
     }
-    .main{
-        width: 100%;
-        max-width: 500px;
-        /* background-color: rgb(242,243,245); */
-        min-height: 40vh;
-        padding: 0 10px;
-        display: flex;
-        flex-direction: column;
-        border-radius: 10px;
-    }
-    .main h1{
-        color: white;
-    }
-    .description{
-        margin-top: 30px;
-        padding-bottom: 20px;
-        
-    }
-    .description div{
-        background-color: white;
-        padding: 1px; 
-        border-radius:10px;
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        padding-left: 10px;
-    }
-    .description h2{
-        color: white;
-    }
-    .description p{
-        background-color: white;
-        padding: 10px;
-        margin-top: 5px;
-        border-radius:10px;
-    }
+
+
     form{
         width: 100%;
         display: flex;
@@ -224,6 +248,22 @@ const Wrapper = styled.div`
         }
     }
 
+`;
+const WeatherDetails = styled.div`
+    width: 100%;
+    max-width: 500px;
+    /* background-color: rgb(242,243,245); */
+    min-height: 40vh;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    h1{
+        color: white;
+    }
+`;
+const Map = styled.div`
+    
 `
 
 export default Weather;
