@@ -104,7 +104,7 @@ function Weather() {
       }
       useEffect(() => {
         handleGeolocation();
-      });
+      }, []);
   return (
     <Wrapper>
         <div className="container">
