@@ -19,7 +19,7 @@ function Weather() {
 //   const [longitude, setLongitude] = useState(""); 
 
   const handleSubmit = async (event) => {
-    setError(true)
+    setLoading(true)
       event.preventDefault();
       if(!city){
           setError("please  enter a city/country name");
@@ -73,7 +73,7 @@ function Weather() {
 
         try {
             const api_key = "b34fd620f1f001d33939eeaf8fe8d5bd";
-            const api_url = `https://api.openweathermap.org/data/2.5/weather?lat=${navigator.geolocation.getCurrentPosition((position) => position.coords.latitude)}&lon=${navigator.geolocation.getCurrentPosition((position) => position.coords.longitude)}&appid=${api_key}`
+            const api_url = `https://api.openweathermap.org/data/2.5/weather?lat=${navigator.geolocation.getCurrentPosition((position) => position.coords.longitude)}&lon=${navigator.geolocation.getCurrentPosition((position) => position.coords.latitude)}&appid=${api_key}`
 
             const locationResponse = await axios.get(api_url);
             setWeatherData(locationResponse.data)

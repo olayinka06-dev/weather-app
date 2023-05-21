@@ -28,16 +28,16 @@ const MapSketch = ({weatherData}) => {
             return () => leafletMap.remove();
         }
     }, [map, weatherData]);
-    
+
 
       
   return (
     <Wrapper>
-        {
-            weatherData&&(
+        {/* { */}
+            {/* // weatherData && ( */}
                 <Map id="map"  ref={(el) => setMap(el)}></Map>
-            )
-        }
+            {/* // ) */}
+        {/* // } */}
     </Wrapper>
   )
 }
@@ -45,7 +45,7 @@ const Wrapper = styled.div`
     
 `;
 const Map = styled.div`
-
+  min-height: 40vh;
 
 `;
 export default MapSketch;
