@@ -15,8 +15,8 @@ function Weather() {
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true); 
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState(""); 
+//   const [latitude, setLatitude] = useState("");
+//   const [longitude, setLongitude] = useState(""); 
 
   const handleSubmit = async (event) => {
     setError(true)
@@ -60,32 +60,31 @@ function Weather() {
     const handleGeolocation = async () => {
         setLoading(true);
         
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition((position) => {
-            setLatitude(position.coords.latitude);
-            setLongitude(position.coords.longitude);
-          })
-        }
-        else{
-          setLatitude("Geolocation is not supported by this browser");
-          setLongitude("Geolocation is not supported by this browser")
-        }
+        // if (navigator.geolocation) {
+        //   navigator.geolocation.getCurrentPosition((position) => {
+        //     setLatitude(position.coords.latitude);
+        //     setLongitude(position.coords.longitude);
+        //   })
+        // }
+        // else{
+        //   setLatitude("Geolocation is not supported by this browser");
+        //   setLongitude("Geolocation is not supported by this browser")
+        // }
 
         try {
             const api_key = "b34fd620f1f001d33939eeaf8fe8d5bd";
-            const api_url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${api_key}`
+            const api_url = `https://api.openweathermap.org/data/2.5/weather?lat=${navigator.geolocation.getCurrentPosition((position) => position.coords.latitude)}&lon=${navigator.geolocation.getCurrentPosition((position) => position.coords.longitude)}&appid=${api_key}`
 
             const locationResponse = await axios.get(api_url);
             setWeatherData(locationResponse.data)
             setError(null);
             setLoading(false);
-            // setCity()
 
         } catch (error) {
             setLoading(false);
 
             if (error.response) {
-                setError(`cannot get weather update for ${city}`)
+                setError(`cannot get weather update for `)
                 setWeatherData(null);
 
             }
@@ -104,6 +103,8 @@ function Weather() {
       }
       useEffect(() => {
         handleGeolocation();
+        // setCity(weatherData.name)
+
       }, []);
   return (
     <Wrapper>
@@ -137,9 +138,11 @@ function Weather() {
                 }
                 <Link to={"/latitude"}>Link to latitude</Link>
             </WeatherDetails>
-            <Map>
-                <MapSketch/>
-            </Map>
+            <MapView>
+                <MapSketch
+                weatherData={weatherData}
+                />
+            </MapView>
         </div>
     </Wrapper>
   )
@@ -167,7 +170,7 @@ const Wrapper = styled.div`
         padding: 0 30px;
         animation: animate 10s linear infinite;
     }
-    @keyframes animate {
+    /* @keyframes animate {
         0%{
             background-image: url(${bgdesktop});
             background-repeat: no-repeat;
@@ -203,7 +206,7 @@ const Wrapper = styled.div`
             overflow: hidden;
             background-size: cover;
         }
-    }
+    } */
 
 
     form{
@@ -262,8 +265,9 @@ const WeatherDetails = styled.div`
         color: white;
     }
 `;
-const Map = styled.div`
-    
+const MapView = styled.div`
+    width: 100%;
+    min-height: 40vh;
 `
 
 export default Weather;

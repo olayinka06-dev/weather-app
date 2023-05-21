@@ -6,7 +6,7 @@ const WeatherData = ({weatherData, city}) => {
     <Wrapper>
         {
             weatherData &&(
-                <Description className="description">
+                <Description>
                     <h2>The Weather information {city} is :</h2>
                     <div>Weather-Icon: <img src={`http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`} alt={weatherData.weather[0].description} /></div>
                     <p>Description: {weatherData.weather[0].description}</p>

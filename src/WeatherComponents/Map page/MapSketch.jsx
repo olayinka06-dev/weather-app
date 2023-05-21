@@ -7,33 +7,34 @@ import '../../index.css';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import ReactDOMServer from 'react-dom/server';
 
-const MapSketch = ({ipInfo}) => {
+const MapSketch = ({weatherData}) => {
     const [map, setMap] = useState(null);
 
 
     useEffect(() => {
-        if (map && ipInfo) {
-            const leafletMap = L.map(map).setView([ipInfo.location.lat, ipInfo.location.lng], 13);
+        if (map && weatherData) {
+            const leafletMap = L.map(map).setView([weatherData.coord.lat, weatherData.coord.lon], 13);
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 18,
             }).addTo(leafletMap);
-            L.marker([ipInfo.location.lat, ipInfo.location.lng], {
+            L.marker([weatherData.coord.lat, weatherData.coord.lon], {
                 icon: L.divIcon({
                   html: ReactDOMServer.renderToString(<FaMapMarkerAlt style={{fontSize: "30px",position: "relative", bottom: "10px", right: "10px",}} />)
                 })
               })
                 .addTo(leafletMap)
-                .bindPopup(`<b>Country: ${ipInfo.location.country}</b><br>City: ${ipInfo.location.city}<br>Region: ${ipInfo.location.region}`)
+                .bindPopup(`<b>Country: ${weatherData.sys.country}</b><br>City: ${weatherData.name}`)
                 .openPopup();
             return () => leafletMap.remove();
         }
-    }, [map, ipInfo]);
+    }, [map, weatherData]);
+    
 
       
   return (
     <Wrapper>
         {
-            ipInfo&&(
+            weatherData&&(
                 <Map id="map"  ref={(el) => setMap(el)}></Map>
             )
         }
