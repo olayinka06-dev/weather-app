@@ -15,12 +15,11 @@ function Weather() {
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true); 
-//   const [latitude, setLatitude] = useState("");
-//   const [longitude, setLongitude] = useState(""); 
 
   const handleSubmit = async (event) => {
-    setLoading(true)
       event.preventDefault();
+      setLoading(true)
+      setError("")
       if(!city){
           setError("please  enter a city/country name");
           setWeatherData("")
@@ -31,7 +30,7 @@ function Weather() {
             const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
             const response = await axios.get(apiUrl)
             setWeatherData(response.data)
-            setError(null);
+            setError("");
             setLoading(false);
 
           } catch (error) {
@@ -41,17 +40,14 @@ function Weather() {
                 if (error.response) {
                     setError(`cannot get weather update for ${city}`)
                     setWeatherData(null);
-
                 }
                 else if (error.request) {
                     setError(`Poor Internet Connection, please try again later`)
                     setWeatherData(null);
-
                 }
                 else{
                     setError("Something happened unexpectedly")
                     setWeatherData(null);
-
                 }
             console.error(error);
           }
@@ -59,25 +55,14 @@ function Weather() {
 
     const handleGeolocation = async () => {
         setLoading(true);
-        
-        // if (navigator.geolocation) {
-        //   navigator.geolocation.getCurrentPosition((position) => {
-        //     setLatitude(position.coords.latitude);
-        //     setLongitude(position.coords.longitude);
-        //   })
-        // }
-        // else{
-        //   setLatitude("Geolocation is not supported by this browser");
-        //   setLongitude("Geolocation is not supported by this browser")
-        // }
 
         try {
             const api_key = "b34fd620f1f001d33939eeaf8fe8d5bd";
-            const api_url = `https://api.openweathermap.org/data/2.5/weather?lat=${navigator.geolocation.getCurrentPosition((position) => position.coords.longitude)}&lon=${navigator.geolocation.getCurrentPosition((position) => position.coords.latitude)}&appid=${api_key}`
+            const api_url = `https://api.openweathermap.org/data/2.5/weather?lat=${navigator.geolocation.getCurrentPosition((positionOne) => positionOne.coords.latitude)}&lon=${navigator.geolocation.getCurrentPosition((positionTwo) => positionTwo.coords.longitude)}&appid=${api_key}`
 
             const locationResponse = await axios.get(api_url);
             setWeatherData(locationResponse.data)
-            setError(null);
+            setError("Loading");
             setLoading(false);
 
         } catch (error) {
@@ -86,17 +71,14 @@ function Weather() {
             if (error.response) {
                 setError(`cannot get weather update for `)
                 setWeatherData(null);
-
             }
             else if (error.request) {
                 setError(`Poor Internet Connection, please try again later`)
                 setWeatherData(null);
-
             }
             else{
                 setError("Something happened unexpectedly")
                 setWeatherData(null);
-
             }
             console.error(error);
         }
@@ -125,10 +107,10 @@ function Weather() {
                 )}
                 {
                     loading ? ( 
-                        <div>
+                        <Loading>
                             <div></div>
                             <p>Loading...</p>
-                        </div>
+                        </Loading>
                     ) : (
                         <WeatherData
                         weatherData={weatherData}
@@ -139,9 +121,19 @@ function Weather() {
                 <Link to={"/latitude"}>Link to latitude</Link>
             </WeatherDetails>
             <MapView>
-                <MapSketch
-                weatherData={weatherData}
-                />
+                {
+                    loading ? ( 
+                        <Loading>
+                            <div></div>
+                            <p>Loading...</p>
+                        </Loading>
+                    ) : (
+                        <MapSketch
+                        weatherData={weatherData}
+                        />
+                    )
+                }
+
             </MapView>
         </div>
     </Wrapper>
@@ -169,6 +161,7 @@ const Wrapper = styled.div`
         justify-content: center;
         padding: 0 30px;
         animation: animate 10s linear infinite;
+        gap: 20px;
     }
     /* @keyframes animate {
         0%{
@@ -237,6 +230,9 @@ const Wrapper = styled.div`
     }
 
     @media screen and (max-width: 950px){
+        .container{
+            flex-direction: column;
+        }
         form{
             flex-direction: column;
             gap: 20px;
@@ -255,12 +251,12 @@ const Wrapper = styled.div`
 const WeatherDetails = styled.div`
     width: 100%;
     max-width: 500px;
-    /* background-color: rgb(242,243,245); */
     min-height: 40vh;
     padding: 0 10px;
     display: flex;
     flex-direction: column;
     border-radius: 10px;
+    border: 2px solid white;
     h1{
         color: white;
     }
@@ -268,6 +264,32 @@ const WeatherDetails = styled.div`
 const MapView = styled.div`
     width: 100%;
     min-height: 40vh;
-`
+    border: 2px solid white;
+    border-radius: 10px;
+
+`;
+const Loading = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    color: white;
+
+    div{
+        width: 50px;
+        height: 50px;
+        border-left: 5px solid white;
+        border-right: 5px solid white;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-radius: 50%;
+        animation: loading 4s linear infinite;
+    }
+    @keyframes loading {
+        0%{transform: rotate(0deg);}
+        100%{transform: rotate(360deg);}
+    }
+`;
 
 export default Weather;
