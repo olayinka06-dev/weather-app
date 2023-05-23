@@ -16,15 +16,71 @@ function Weather() {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true); 
 
-  const handleSubmit = async (event) => {
-      event.preventDefault();
-      setLoading(true)
-      setError("")
-      if(!city){
+
+  useEffect(() => {
+    getCurrentLocation();
+  }, []);
+
+  const getCurrentLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          getWeatherByCoordinates(latitude, longitude);
+        },
+        (error) => {
+          console.error('Error getting current location:', error);
+        }
+      );
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+    }
+  };
+
+  const getWeatherByCoordinates = async (latitude, longitude) => {
+    setLoading(true);
+    try {
+        const API_KEY = "b34fd620f1f001d33939eeaf8fe8d5bd";
+        const API_URL =  `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`
+        const response = await axios.get(API_URL);
+        const myCity = response.data.name;
+        setWeatherData(response.data);
+        setError("Loading");
+        setLoading(false);
+        setCity(myCity);
+    } catch (error) {
+        setLoading(false);
+
+        if (error.response) {
+            setError(`cannot get weather update for `)
+            setWeatherData(null);
+        }
+        else if (error.request) {
+            setError(`Poor Internet Connection, please try again later`)
+            setWeatherData(null);
+        }
+        else{
+            setError("Something happened unexpectedly")
+            setWeatherData(null);
+        }
+        console.error(error);
+    }
+  };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setError("")
+        if(!city){
           setError("please  enter a city/country name");
           setWeatherData("")
           return;
-      }
+        }
+        getCurrentWeather();
+    };
+
+    const getCurrentWeather = async () => {
+
         try {
             const apiKey = "b34fd620f1f001d33939eeaf8fe8d5bd";
             const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
@@ -53,41 +109,6 @@ function Weather() {
           }
     };
 
-    const handleGeolocation = async () => {
-        setLoading(true);
-
-        try {
-            const api_key = "b34fd620f1f001d33939eeaf8fe8d5bd";
-            const api_url = `https://api.openweathermap.org/data/2.5/weather?lat=${navigator.geolocation.getCurrentPosition((positionOne) => positionOne.coords.latitude)}&lon=${navigator.geolocation.getCurrentPosition((positionTwo) => positionTwo.coords.longitude)}&appid=${api_key}`
-
-            const locationResponse = await axios.get(api_url);
-            setWeatherData(locationResponse.data)
-            setError("Loading");
-            setLoading(false);
-
-        } catch (error) {
-            setLoading(false);
-
-            if (error.response) {
-                setError(`cannot get weather update for `)
-                setWeatherData(null);
-            }
-            else if (error.request) {
-                setError(`Poor Internet Connection, please try again later`)
-                setWeatherData(null);
-            }
-            else{
-                setError("Something happened unexpectedly")
-                setWeatherData(null);
-            }
-            console.error(error);
-        }
-      }
-      useEffect(() => {
-        handleGeolocation();
-        // setCity(weatherData.name)
-
-      }, []);
   return (
     <Wrapper>
         <div className="container">
