@@ -54,7 +54,7 @@ const Wrapper = styled.div`
   
   .preloader-progress:before {
     content: "";
-    width: 0%;
+    width: 100%;
     height: 100%;
     background-color: #fff;
     position: absolute;
@@ -65,10 +65,10 @@ const Wrapper = styled.div`
   
   @keyframes progress {
     0% {
-      width: 0%;
+      width: 100%;
     }
     100% {
-      width: 100%;
+      width: 0%;
     }
   }
 

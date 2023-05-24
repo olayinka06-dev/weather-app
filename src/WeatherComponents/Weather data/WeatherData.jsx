@@ -27,7 +27,7 @@ const Wrapper = styled.div`
 const Description = styled.div`
 
     margin-top: 30px;
-    padding-bottom: 20px;
+    padding-bottom: 50px !important;
         
     div{
         background-color: white;
