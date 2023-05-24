@@ -52,19 +52,21 @@ function Weather() {
         setLoading(false);
         setCity(myCity);
     } catch (error) {
-        setLoading(false);
 
         if (error.response) {
             setError(`cannot get weather update for `)
             setWeatherData(null);
+            setLoading(false);
         }
         else if (error.request) {
             setError(`Poor Internet Connection, please try again later`)
             setWeatherData(null);
+            setLoading(false);
         }
         else{
             setError("Something happened unexpectedly")
             setWeatherData(null);
+            setLoading(false);
         }
         console.error(error);
     }
@@ -146,7 +148,6 @@ function Weather() {
                     />
                     )
                 }
-                <Link to={"/latitude"}>Link to latitude</Link>
             </WeatherDetails>
             <MapView>
                 {
