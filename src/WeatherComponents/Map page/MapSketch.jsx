@@ -33,11 +33,7 @@ const MapSketch = ({weatherData}) => {
       
   return (
     <Wrapper>
-        {/* { */}
-            {/* // weatherData && ( */}
-                <Map id="map"  ref={(el) => setMap(el)}></Map>
-            {/* // ) */}
-        {/* // } */}
+      <Map id="map"  ref={(el) => setMap(el)}></Map>
     </Wrapper>
   )
 }
@@ -45,7 +41,7 @@ const Wrapper = styled.div`
     
 `;
 const Map = styled.div`
-  min-height: 40vh;
+  height: 60vh;
 
 `;
 export default MapSketch;

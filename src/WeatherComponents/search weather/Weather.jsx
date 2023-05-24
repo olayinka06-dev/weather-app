@@ -72,6 +72,7 @@ function Weather() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        setLoading(true)
         setError("")
         if(!city){
           setError("please  enter a city/country name");
