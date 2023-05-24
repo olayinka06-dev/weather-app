@@ -60,7 +60,7 @@ const Wrapper = styled.div`
     position: relative;
     margin-top: 20px;
     transform-origin: right;
-    animation: ${progressAnimation} 2s linear infinite;
+    animation: ${progressAnimation} 2s linear infinite reverse;
   }
 `;
 
