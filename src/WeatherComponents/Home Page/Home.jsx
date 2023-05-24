@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Weather from '../search weather/Weather';
 import Preloader from '../Preloader page/Preloader';
 
