@@ -18,10 +18,10 @@ const Preloader = () => {
 }
 const progressAnimation = keyframes`
   0% {
-    transform: scaleX(0);
+    transform: scaleX(1);
   }
   100% {
-    transform: scaleX(1);
+    transform: scaleX(0);
   }
 `;
 
