@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import bgdesktop from "../../images/pexels-pixabay-531756.jpg";
 import bgdesktop1 from "../../images/pexels-pixabay-314726.jpg";
 import bgdesktop2 from "../../images/pexels-lumn-311039 (1).jpg";
