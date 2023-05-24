@@ -77,6 +77,7 @@ function Weather() {
         if(!city){
           setError("please  enter a city/country name");
           setWeatherData("")
+          setLoading(false);
           return;
         }
         getCurrentWeather();
@@ -93,20 +94,23 @@ function Weather() {
             setLoading(false);
 
           } catch (error) {
-            setLoading(false);
-
-
                 if (error.response) {
                     setError(`cannot get weather update for ${city}`)
                     setWeatherData(null);
+                    setLoading(false);
+
                 }
                 else if (error.request) {
                     setError(`Poor Internet Connection, please try again later`)
                     setWeatherData(null);
+                    setLoading(false);
+
                 }
                 else{
                     setError("Something happened unexpectedly")
                     setWeatherData(null);
+                    setLoading(false);
+
                 }
             console.error(error);
           }
