@@ -18,25 +18,27 @@ function Weather() {
 
 
   useEffect(() => {
+    const getCurrentLocation = () => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const latitude = position.coords.latitude;
+              const longitude = position.coords.longitude;
+              getWeatherByCoordinates(latitude, longitude);
+            },
+            (error) => {
+              console.error('Error getting current location:', error);
+            }
+          );
+        } else {
+          console.error('Geolocation is not supported by this browser.');
+        }
+      };
+
     getCurrentLocation();
   }, []);
 
-  const getCurrentLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const latitude = position.coords.latitude;
-          const longitude = position.coords.longitude;
-          getWeatherByCoordinates(latitude, longitude);
-        },
-        (error) => {
-          console.error('Error getting current location:', error);
-        }
-      );
-    } else {
-      console.error('Geolocation is not supported by this browser.');
-    }
-  };
+
 
   const getWeatherByCoordinates = async (latitude, longitude) => {
     setLoading(true);
@@ -184,7 +186,7 @@ const Wrapper = styled.div`
         animation: animate 10s linear infinite;
         gap: 20px;
     }
-    /* @keyframes animate {
+    @keyframes animate {
         0%{
             background-image: url(${bgdesktop});
             background-repeat: no-repeat;
@@ -220,7 +222,7 @@ const Wrapper = styled.div`
             overflow: hidden;
             background-size: cover;
         }
-    } */
+    }
 
 
     form{
