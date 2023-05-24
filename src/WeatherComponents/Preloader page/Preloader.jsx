@@ -41,12 +41,13 @@ const Wrapper = styled.div`
   
   .preloader-logo img {
     width: 100px;
+    border-radius: 50%;
     height: auto;
-    animation: animate 1s linear infinite;
+    animation: loadlogo 1s linear infinite;
   }
-  @keyframes animate {
+  @keyframes loadlogo {
     0%{transform: scale(90%);}
-    100%{transform: scale(125%);}
+    100%{transform: scale(115%);}
   }
   .preloader-progress {
     width: 100%;
