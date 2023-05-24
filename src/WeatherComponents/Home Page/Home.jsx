@@ -8,7 +8,7 @@ const Home = () => {
   useEffect(() => {
     setInterval(()=> {
         setIsLoading(false);
-    }, 4000)
+    }, 2000)
   }, []);
 
   return (

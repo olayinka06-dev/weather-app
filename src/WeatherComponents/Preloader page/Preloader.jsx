@@ -60,7 +60,7 @@ const Wrapper = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    animation: progress 2s ease-in-out forwards;
+    animation: progress 2s ease-in-out backwards;
   }
   
   @keyframes progress {
@@ -72,11 +72,6 @@ const Wrapper = styled.div`
     }
   }
 
-  .preloader.preload-finish {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease-in-out;
-  }
   // .progress-bar {
   //   width: 200px;
   //   height: 10px;
