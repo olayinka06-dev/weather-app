@@ -19,7 +19,7 @@ function Weather() {
 
   useEffect(() => {
     getCurrentLocation();
-  });
+  }, []);
 
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
