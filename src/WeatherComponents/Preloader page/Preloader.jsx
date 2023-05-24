@@ -59,7 +59,7 @@ const Wrapper = styled.div`
     background-color: #000;
     position: relative;
     margin-top: 20px;
-    transform-origin: left;
+    transform-origin: right;
     animation: ${progressAnimation} 2s linear infinite;
   }
 `;
