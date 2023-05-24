@@ -6,7 +6,9 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(false);
+    setInterval(()=> {
+        setIsLoading(false);
+    }, 4000)
   }, []);
 
   return (
