@@ -3,25 +3,24 @@ import styled from 'styled-components';
 
 const Preloader = () => {
   return (
-    <Wrapper>
+    <Wrapper className='loader'>
       <div className="progress-bar" />
     </Wrapper>
   )
 }
 const Wrapper = styled.div`
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-    *{
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   .progress-bar {
     width: 200px;
@@ -38,9 +37,8 @@ const Wrapper = styled.div`
     transition: width 0.3s ease-in-out;
   }
 
-  .loader.loading .progress-bar:before {
+  .loader .progress-bar:before {
     width: 100%;
   }
-
-`
-export default Preloader
+`;
+export default Preloader;
