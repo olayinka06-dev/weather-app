@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import logo from '../../images/weather-2021-12-07.png'
 
 const Preloader = () => {
   return (
@@ -7,8 +8,7 @@ const Preloader = () => {
       <div class="preloader">
         <div class="preloader-inner">
           <div class="preloader-logo">
-            Insert your logo or any image here
-            {/* <img src="./images/check-line.png" alt=""/> */}
+            <img src={logo} alt={logo}/>
           </div>
           <div class="preloader-progress"></div>
         </div>
@@ -42,8 +42,12 @@ const Wrapper = styled.div`
   .preloader-logo img {
     width: 100px;
     height: auto;
+    animation: animate 1s linear infinite;
   }
-  
+  @keyframes animate {
+    0%{transform: scale(90%);}
+    100%{transform: scale(125%);}
+  }
   .preloader-progress {
     width: 100%;
     height: 5px;
@@ -54,7 +58,7 @@ const Wrapper = styled.div`
   
   .preloader-progress:before {
     content: "";
-    width: 0%;
+    width: 100%;
     height: 100%;
     background-color: #fff;
     position: absolute;
@@ -65,10 +69,10 @@ const Wrapper = styled.div`
   
   @keyframes progress {
     0% {
-      width: 0%;
+      width: 100%;
     }
     100% {
-      width: 100%;
+      width: 0%;
     }
   }
 
