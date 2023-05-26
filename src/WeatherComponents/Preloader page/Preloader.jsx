@@ -16,14 +16,9 @@ const Preloader = () => {
     </Wrapper>
   )
 }
-const progressAnimation = keyframes`
-  0% {
-    transform: scaleX(1);
-  }
-  100% {
-    transform: scaleX(0);
-  }
-`;
+// const progressAnimation = keyframes`
+
+// `;
 
 const Wrapper = styled.div`
   * {
@@ -60,7 +55,15 @@ const Wrapper = styled.div`
     position: relative;
     margin-top: 20px;
     transform-origin: right;
-    animation: ${progressAnimation} 2s linear infinite reverse;
+    animation: progressload 2s linear infinite reverse;
+  }
+  @keyframes progressload {
+    0% {
+      transform: scaleX(1);
+    }
+    100% {
+      transform: scaleX(0);
+    }
   }
 `;
 
