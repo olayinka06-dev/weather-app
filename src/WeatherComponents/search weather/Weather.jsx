@@ -117,11 +117,40 @@ function Weather() {
           }
     };
 
+    const handlePlay = () => {
+        if (weatherData) {
+          const { name, main, weather } = weatherData;
+          const { temp } = main;
+          const { description } = weather[0];
+          const utterance = new SpeechSynthesisUtterance(
+            `The current weather in ${name} is ${temp} Kelvin with ${description} condition.`
+          );
+          speechSynthesis.speak(utterance);
+          setIsSpeaking(true);
+        }
+      };
+    
+      const handleStop = () => {
+        speechSynthesis.cancel();
+        setIsSpeaking(false);
+      };
+
+
   return (
     <Wrapper>
         <div className="container">
             <WeatherDetails className="main">
-                <h1>My Weather App</h1>
+                <div className="top">
+                    <h1>My Weather App</h1>
+                    {
+                        weatherData(
+                            <button onClick={isSpeaking ? handleStop : handlePlay}>
+                                {isSpeaking ? <FaPause /> : <FaPlay />}{' '}
+                                {isSpeaking ? 'Pause' : 'Play Weather'}
+                            </button>
+                        )
+                    }
+                </div>
                 <form action="" onSubmit={handleSubmit}>
                     <input 
                     type="search"
@@ -256,6 +285,12 @@ const Wrapper = styled.div`
         border: 1px solid #0563bb;
         cursor: pointer;
     }
+    .top{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        gap: 30px;
+    }
 
     @media screen and (max-width: 950px){
         .container{
@@ -272,6 +307,10 @@ const Wrapper = styled.div`
         button{
             width: 100%;
             border-radius: 20px;
+        }
+        .top{
+            flex-direction: column;
+            gap: 15px;
         }
     }
 
