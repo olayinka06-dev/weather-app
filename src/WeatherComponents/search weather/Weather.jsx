@@ -8,6 +8,7 @@ import bgdesktop3 from "../../images/pexels-iconcom-216599.jpg";
 import bgdesktop4 from "../../images/pexels-prashant-gautam-3783385.jpg";
 import WeatherData from "../Weather data/WeatherData";
 import MapSketch from "../Map page/MapSketch";
+import { FaPlay, FaPause } from 'react-icons/fa';
 
 function Weather() {
   const [city, setCity] = useState("");
@@ -290,6 +291,10 @@ const Wrapper = styled.div`
         display: flex;
         flex-direction: row;
         gap: 30px;
+    }
+    svg{
+        font-size: 25px;
+        color: white;
     }
 
     @media screen and (max-width: 950px){
