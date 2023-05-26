@@ -15,6 +15,7 @@ function Weather() {
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true); 
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
 
   useEffect(() => {
