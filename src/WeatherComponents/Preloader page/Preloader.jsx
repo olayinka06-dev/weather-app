@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import logo from '../../images/weather-2021-12-07.png'
 
 const Preloader = () => {
