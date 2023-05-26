@@ -145,7 +145,7 @@ function Weather() {
                 <div className="top">
                     <h1>My Weather App</h1>
                     {
-                        weatherData(
+                        weatherData && (
                             <button onClick={isSpeaking ? handleStop : handlePlay}>
                                 {isSpeaking ? <FaPause /> : <FaPlay />}{' '}
                                 {isSpeaking ? 'Pause' : 'Play Weather'}
