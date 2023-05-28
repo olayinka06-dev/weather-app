@@ -125,7 +125,7 @@ function Weather() {
           const { temp } = main;
           const { description } = weather[0];
           const utterance = new SpeechSynthesisUtterance(
-            `The current weather in ${name} is ${temp} Kelvin with ${description} condition.`
+            `The current weather in ${name} is ${temp-273.13} Kelvin with ${description} condition.`
           );
           speechSynthesis.speak(utterance);
           setIsSpeaking(true);
@@ -140,16 +140,18 @@ function Weather() {
 
   return (
     <Wrapper>
+        <marquee behavior="2000" style={{color: "white", fontSize: "20px"}} direction="left">Get To Know The Weather Update of Your City/Country Across The Globe</marquee>
         <div className="container">
             <WeatherDetails className="main">
                 <div className="top">
                     <h1>My Weather App</h1>
                     {
                         weatherData && (
-                            <button onClick={isSpeaking ? handleStop : handlePlay}>
-                                {isSpeaking ? <FaPause /> : <FaPlay />}{' '}
-                                {isSpeaking ? 'Pause' : 'Play Weather'}
-                            </button>
+                            <div>
+                                <button onClick={isSpeaking ? handleStop : handlePlay}>
+                                    {isSpeaking ? <FaPause className='svg' /> : <FaPlay className='svg' />}
+                                </button>
+                            </div>
                         )
                     }
                 </div>
@@ -195,6 +197,9 @@ function Weather() {
 
             </MapView>
         </div>
+        <footer style={{textAlign: "center"}}>
+            <span style={{color: "blue"}}>Coded and Designed By <a style={{color: "red"}} href="https://olayinka-dev-portfolio.netlify.app">Olayinka_Dev</a></span>
+        </footer>
     </Wrapper>
   )
 }
@@ -202,6 +207,12 @@ const Error = styled.p`
     color: red;
 `
 const Wrapper = styled.div`
+        min-height: 100vh;
+        width: 100%;
+        background-image: url(${bgdesktop});
+        background-repeat: no-repeat;
+        background-size: cover;
+        animation: animate 10s linear infinite;
     
     *{
         margin: 0;
@@ -210,16 +221,12 @@ const Wrapper = styled.div`
     }
     .container{
         width: 100%;
-        min-height: 100vh;
-        background-image: url(${bgdesktop});
-        background-repeat: no-repeat;
-        background-size: cover;
+        min-height: 90vh;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
         padding: 0 30px;
-        animation: animate 10s linear infinite;
         gap: 20px;
     }
     @keyframes animate {
@@ -277,7 +284,7 @@ const Wrapper = styled.div`
         border: 1px solid #0563bb;
         outline-color: #0563bb;
     }
-    button{
+    form button{
         width: 40%;
         padding: 15px 0;
         background: #0563bb;
@@ -287,18 +294,28 @@ const Wrapper = styled.div`
         border: 1px solid #0563bb;
         cursor: pointer;
     }
+    .top button{
+        padding: 15px 25px;
+        background: #0563bb;
+        color: white;
+        border-radius: 50%;
+        border: 1px solid #0563bb;
+        cursor: pointer;
+    }
     .top{
         width: 100%;
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
         gap: 30px;
     }
-    svg{
+    .svg{
         font-size: 25px;
         color: white;
     }
 
     @media screen and (max-width: 950px){
+        padding: 10px 0;
         .container{
             flex-direction: column;
         }
@@ -310,13 +327,17 @@ const Wrapper = styled.div`
             width: 100%;
             border-radius: 20px;
         }
-        button{
+        form button{
             width: 100%;
             border-radius: 20px;
         }
         .top{
             flex-direction: column;
             gap: 15px;
+        }
+        .top button{
+            overflow: hidden;
+            float: right;
         }
     }
 

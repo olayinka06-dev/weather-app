@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import logo from '../../images/weather-2021-12-07.png'
 
 const Preloader = () => {
@@ -13,17 +13,12 @@ const Preloader = () => {
           <div class="preloader-progress"></div>
         </div>
       </div>
+      <footer style={{width: "100%", display: "flex", alignItems: "center", justifyContent: "center", position: "absolute", bottom: "3%"}}>
+        <span style={{color: "blue"}}>Coded and Designed By <a style={{color: "red"}} href="https://olayinka-dev-portfolio.netlify.app">Olayinka_Dev</a></span>
+      </footer>
     </Wrapper>
   )
 }
-const progressAnimation = keyframes`
-  0% {
-    transform: scaleX(1);
-  }
-  100% {
-    transform: scaleX(0);
-  }
-`;
 
 const Wrapper = styled.div`
   * {
@@ -42,25 +37,48 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: center;
   }
-
+  
   .preloader-inner {
     text-align: center;
   }
-
-  .preloader-logo {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
+  
+  .preloader-logo img {
+    width: 100px;
+    border-radius: 50%;
+    height: auto;
+    animation: loadlogo 1s linear infinite;
   }
-
+  @keyframes loadlogo {
+    0%{transform: scale(90%);}
+    100%{transform: scale(115%);}
+  }
+  
   .preloader-progress {
     width: 100%;
     height: 5px;
-    background-color: #000;
+    background-color: #fff;
     position: relative;
     margin-top: 20px;
-    transform-origin: right;
-    animation: ${progressAnimation} 2s linear infinite reverse;
+  }
+  
+  .preloader-progress:before {
+    content: "";
+    width: 0%;
+    height: 100%;
+    background-color: #000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: progress 3s ease-in-out forwards;
+  }
+  
+  @keyframes progress {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
   }
 `;
 
@@ -87,16 +105,16 @@ const Wrapper = styled.div`
 //     text-align: center;
 //   }
   
-//   .preloader-logo img {
-//     width: 100px;
-//     border-radius: 50%;
-//     height: auto;
-//     animation: loadlogo 1s linear infinite;
-//   }
-//   @keyframes loadlogo {
-//     0%{transform: scale(90%);}
-//     100%{transform: scale(115%);}
-//   }
+  // .preloader-logo img {
+  //   width: 100px;
+  //   border-radius: 50%;
+  //   height: auto;
+  //   animation: loadlogo 1s linear infinite;
+  // }
+  // @keyframes loadlogo {
+  //   0%{transform: scale(90%);}
+  //   100%{transform: scale(115%);}
+  // }
 //   .preloader-progress {
 //     width: 100%;
 //     height: 5px;
