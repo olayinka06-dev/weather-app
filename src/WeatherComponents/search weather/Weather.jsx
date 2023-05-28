@@ -29,6 +29,7 @@ function Weather() {
             },
             (error) => {
               console.error('Error getting current location:', error);
+              
             }
           );
         } else {
@@ -140,7 +141,7 @@ function Weather() {
 
   return (
     <Wrapper>
-        <marquee behavior="2000" style={{color: "white", fontSize: "20px"}} direction="left">Get To Know The Weather Update of Your City/Country Across The Globe</marquee>
+        <Marquee>Get To Know The Weather Update of Your City/Country Across The Globe</Marquee>
         <div className="container">
             <WeatherDetails className="main">
                 <div className="top">
@@ -385,5 +386,16 @@ const Loading = styled.div`
         100%{transform: rotate(360deg);}
     }
 `;
+const Marquee = styled.div`
+    color: white;
+    font-size: 20px;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+    overflow: hidden;
+    @keyframes marquee {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+    }
+`
 
 export default Weather;
