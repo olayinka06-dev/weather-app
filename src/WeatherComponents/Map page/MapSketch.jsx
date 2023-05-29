@@ -23,7 +23,7 @@ const MapSketch = ({weatherData}) => {
                 })
               })
                 .addTo(leafletMap)
-                .bindPopup(`<b>Country: ${weatherData.sys.country}</b><br>City: ${weatherData.name}`)
+                .bindPopup(`<b>Country: ${weatherData.sys.country}</b><br>City: ${weatherData.name}<br>`)
                 .openPopup();
             return () => leafletMap.remove();
         }
@@ -42,6 +42,6 @@ const Wrapper = styled.div`
 `;
 const Map = styled.div`
   height: 60vh;
-
+  width: 100%;
 `;
 export default MapSketch;

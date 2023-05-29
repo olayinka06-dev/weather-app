@@ -29,7 +29,7 @@ function Weather() {
             },
             (error) => {
               console.error('Error getting current location:', error);
-              
+              setError('Error getting current location')
             }
           );
         } else {
@@ -389,7 +389,7 @@ const Loading = styled.div`
 const Marquee = styled.div`
     color: white;
     font-size: 20px;
-    animation: marquee 20s linear infinite;
+    animation: marquee 30s linear infinite;
     white-space: nowrap;
     overflow: hidden;
     @keyframes marquee {
