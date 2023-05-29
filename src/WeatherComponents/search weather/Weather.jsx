@@ -50,7 +50,7 @@ function Weather() {
         const response = await axios.get(API_URL);
         const myCity = response.data.name;
         setWeatherData(response.data);
-        setError("Loading");
+        setError("");
         setLoading(false);
         setCity(myCity);
     } catch (error) {
