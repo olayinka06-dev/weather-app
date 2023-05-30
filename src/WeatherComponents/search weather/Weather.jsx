@@ -126,7 +126,7 @@ function Weather() {
           const { temp } = main;
           const { description } = weather[0];
           const utterance = new SpeechSynthesisUtterance(
-            `The current weather in ${name} is ${temp-273.13} Kelvin with ${description} condition.`
+            `The current weather in ${name} is ${Math.round(temp-273.13)} Kelvin with ${description} condition.`
           );
           utterance.addEventListener('end', () => {
             setIsSpeaking(false);

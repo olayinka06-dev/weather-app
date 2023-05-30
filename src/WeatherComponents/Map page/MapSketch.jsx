@@ -47,7 +47,7 @@ const Map = styled.div`
   width: 100%;
 
   .popup-content {
-    padding: 15px 10px;
+    padding: 15px;
   }
 
 `;
