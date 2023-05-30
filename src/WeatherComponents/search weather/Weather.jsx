@@ -128,6 +128,10 @@ function Weather() {
           const utterance = new SpeechSynthesisUtterance(
             `The current weather in ${name} is ${temp-273.13} Kelvin with ${description} condition.`
           );
+          utterance.addEventListener('end', () => {
+            setIsSpeaking(false);
+          });
+    
           speechSynthesis.speak(utterance);
           setIsSpeaking(true);
         }
